@@ -1,26 +1,28 @@
-with open("index_2.0.html", "w", encoding="utf-8") as f:
-    f.write("""<!DOCTYPE html>
+code = """<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucid Dreamer Dashboard Pro 2.0</title>
+    <title>Lucid Space - Claude Edition</title>
     <style>
         :root {
-            --bg-color: #08090f;
-            --card-bg: #11131e;
-            --card-hover: #171a2b;
-            --accent-main: #7b61ff;
-            --accent-lucid: #00f2fe;
-            --text-main: #f1f5f9;
-            --text-muted: #64748b;
-            --border: #1e2235;
-            --success: #10b981;
-            --danger: #ef4444;
+            /* Claude-inspired Pastel & Beige Palette */
+            --bg-color: #f7f5f0;
+            --card-bg: #ffffff;
+            --card-hover: #faf9f6;
+            --accent-main: #c48b71; /* Terracotta / Muted Peach */
+            --accent-lucid: #7ba395; /* Sage Green */
+            --text-main: #3d3929;
+            --text-muted: #857f6d;
+            --border: #e6e2d8;
+            --success: #7ba395;
+            --danger: #d96c6c;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -28,40 +30,57 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            line-height: 1.5;
         }
 
         .container {
             width: 100%;
             max-width: 800px;
-            padding: 20px;
+            padding: 24px;
             box-sizing: border-box;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
         }
 
         h1 {
-            font-size: 24px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-main), var(--accent-lucid));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text-main);
             margin: 0;
+            letter-spacing: -0.02em;
         }
 
-        /* Navigation Tabs */
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin: 24px 0 12px 0;
+        }
+
+        /* Navigation */
         .tabs {
             display: flex;
             gap: 8px;
-            background-color: var(--card-bg);
-            padding: 4px;
+            background-color: #eeebe3;
+            padding: 6px;
             border-radius: 12px;
-            border: 1px solid var(--border);
             margin-bottom: 24px;
         }
 
@@ -72,66 +91,65 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             color: var(--text-muted);
             padding: 10px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             border-radius: 8px;
-            transition: all 0.2s ease;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
         }
 
         .tab-btn.active {
-            background-color: var(--accent-main);
-            color: #fff;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .tab-content {
-            display: none;
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Cards & UI Elements */
+        /* Cards */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 20px;
+            padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: border-color 0.2s;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .card:hover {
-            border-color: rgba(123, 97, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
         }
 
-        h2 {
-            margin-top: 0;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        textarea, input[type="text"] {
+        /* Inputs & Buttons */
+        textarea, input[type="text"], select {
             width: 100%;
             box-sizing: border-box;
             background-color: var(--bg-color);
             border: 1px solid var(--border);
             color: var(--text-main);
-            border-radius: 10px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 14px 16px;
             font-size: 15px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: var(--transition);
+            font-family: inherit;
         }
 
-        textarea:focus, input[type="text"]:focus {
+        textarea:focus, input[type="text"]:focus, select:focus {
             border-color: var(--accent-main);
+            background-color: var(--card-bg);
+            box-shadow: 0 0 0 3px rgba(196, 139, 113, 0.1);
         }
 
         .btn {
@@ -139,111 +157,146 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             color: white;
             border: none;
             padding: 12px 24px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
-        .btn:hover { opacity: 0.9; }
-        .btn-danger { background-color: var(--danger); }
-        .btn-secondary { background-color: #24283b; color: var(--text-main); border: 1px solid var(--border); }
-        .btn-small { padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(196, 139, 113, 0.3);
+            opacity: 0.95;
+        }
 
-        /* Checklist / Tracker */
+        .btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #eeebe3;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-danger {
+            background-color: #fff0f0;
+            color: var(--danger);
+        }
+
+        .btn-small { padding: 6px 12px; font-size: 13px; border-radius: 8px; }
+
+        /* Checklist */
         .todo-item {
             display: flex;
             align-items: center;
-            padding: 14px;
-            background-color: var(--bg-color);
+            padding: 16px;
+            background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 10px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: var(--transition);
         }
 
         .todo-item:hover {
-            border-color: rgba(0, 242, 254, 0.2);
+            transform: translateX(4px);
+            border-color: var(--accent-main);
         }
 
         .todo-item input[type="checkbox"] {
-            margin-right: 14px;
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent-lucid);
+            margin-right: 16px;
+            width: 22px;
+            height: 22px;
+            accent-color: var(--accent-main);
             cursor: pointer;
+            border-radius: 6px;
         }
 
         .todo-item.checked {
-            opacity: 0.6;
+            opacity: 0.5;
+            background-color: var(--bg-color);
             border-color: transparent;
-            background-color: rgba(30, 34, 53, 0.3);
+            text-decoration: line-through;
         }
 
         /* Dream Journal Items */
         .dream-entry {
+            background-color: var(--card-bg);
             border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 14px;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
             position: relative;
+            transition: var(--transition);
+        }
+        
+        .dream-entry:hover {
+            box-shadow: var(--shadow);
         }
 
-        .dream-entry.is-lucid {
-            border-left: 4px solid var(--accent-lucid);
-        }
-
-        .dream-entry.is-normal {
-            border-left: 4px solid var(--accent-main);
-        }
+        .dream-entry.is-lucid { border-top: 4px solid var(--accent-lucid); }
+        .dream-entry.is-normal { border-top: 4px solid var(--accent-main); }
 
         .dream-header {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            align-items: center;
+            font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
         }
 
         .dream-actions {
             display: flex;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: 16px;
             justify-content: flex-end;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
         }
 
         .tag {
             display: inline-block;
-            background-color: rgba(123, 97, 255, 0.1);
-            color: #b4a7ff;
-            padding: 4px 10px;
-            border-radius: 6px;
+            background-color: #eeebe3;
+            color: var(--text-main);
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            margin-top: 8px;
-            margin-right: 6px;
-            border: 1px solid rgba(123, 97, 255, 0.2);
+            font-weight: 500;
+            margin-top: 12px;
+            margin-right: 8px;
         }
 
         .tag.lucid-badge {
-            background-color: rgba(0, 242, 254, 0.1);
+            background-color: #e6f0ed;
             color: var(--accent-lucid);
-            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+        
+        .tag.technique-badge {
+            background-color: #f5ece8;
+            color: var(--accent-main);
         }
 
-        /* Toggle Switch for Lucidity */
         .toggle-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-            font-size: 14px;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            padding: 12px;
+            background: #eeebe3;
+            border-radius: 12px;
         }
 
         /* Floating AI Chat Widget */
@@ -251,147 +304,149 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 360px;
-            height: 500px;
+            width: 380px;
+            height: 550px;
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             z-index: 1000;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+            transition: var(--transition);
             transform: translateY(calc(100% + 40px));
             opacity: 0;
+            pointer-events: none;
         }
 
         #chat-widget.open {
             transform: translateY(0);
             opacity: 1;
+            pointer-events: all;
         }
 
         #chat-trigger {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent-main), var(--accent-lucid));
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-main);
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(123, 97, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(196, 139, 113, 0.4);
             z-index: 999;
             border: none;
             color: white;
             font-size: 24px;
+            transition: var(--transition);
+        }
+        
+        #chat-trigger:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .chat-header {
-            background-color: #171a2b;
-            padding: 14px;
+            background-color: var(--card-bg);
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 15px;
         }
 
         .chat-messages {
             flex: 1;
-            padding: 14px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 16px;
+            background-color: var(--bg-color);
         }
 
         .msg {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: 12px;
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .msg.user {
             background-color: var(--accent-main);
             color: white;
             align-self: flex-end;
-            border-bottom-right-radius: 2px;
+            border-bottom-right-radius: 4px;
         }
 
         .msg.ai {
-            background-color: var(--bg-color);
+            background-color: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
             align-self: flex-start;
-            border-bottom-left-radius: 2px;
+            border-bottom-left-radius: 4px;
         }
 
         .chat-input-area {
-            padding: 12px;
+            padding: 16px;
             border-top: 1px solid var(--border);
             display: flex;
-            gap: 8px;
-            background-color: #131522;
+            gap: 12px;
+            background-color: var(--card-bg);
         }
 
-        .chat-input-area input {
-            margin-bottom: 0;
-            padding: 10px;
-            font-size: 14px;
-        }
+        .chat-input-area input { margin-bottom: 0; }
 
-        .chat-input-area button {
-            width: auto;
-            padding: 0 16px;
-        }
-
-        /* Statistics Layout */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .stat-box {
             background-color: var(--bg-color);
             border: 1px solid var(--border);
-            padding: 14px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
         }
 
         .stat-val {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent-lucid);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-main);
+            line-height: 1;
         }
 
         .stat-lbl {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 8px;
+            font-weight: 500;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         @media (max-width: 480px) {
             #chat-widget {
                 width: calc(100% - 32px);
-                height: 70vh;
+                height: 75vh;
                 right: 16px;
-                bottom: 86px;
+                bottom: 100px;
             }
-            #chat-trigger {
-                bottom: 16px;
-                right: 16px;
-            }
+            #chat-trigger { bottom: 20px; right: 20px; }
+            .tabs { flex-wrap: wrap; }
+            .tab-btn { flex-basis: 40%; }
         }
     </style>
 </head>
@@ -399,69 +454,78 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
 
     <div class="container">
         <header>
-            <h1>Lucid Space Pro 2.0</h1>
-            <div id="reset-indicator" style="font-size: 11px; color: var(--text-muted);"></div>
+            <h1>Lucid Space</h1>
+            <div id="reset-indicator" style="font-size: 12px; color: var(--text-muted); font-weight: 500;"></div>
         </header>
 
-        <!-- Navigation Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('tab-journal')">Journal</button>
-            <button class="tab-btn" onclick="switchTab('tab-checks')">Checks</button>
-            <button class="tab-btn" onclick="switchTab('tab-stats')">Analyse & Key</button>
+            <button class="tab-btn active interactive" onclick="switchTab('tab-journal')">Journal</button>
+            <button class="tab-btn interactive" onclick="switchTab('tab-checks')">Checks</button>
+            <button class="tab-btn interactive" onclick="switchTab('tab-stats')">Analyse</button>
+            <button class="tab-btn interactive" onclick="switchTab('tab-settings')">Setup</button>
         </div>
 
-        <!-- TAB 1: Journal -->
         <div id="tab-journal" class="tab-content active">
             <div class="card">
-                <h2 id="form-title">Traum aufzeichnen</h2>
+                <h2 id="form-title">Traum dokumentieren</h2>
                 <input type="hidden" id="edit-id" value="">
-                <textarea id="dream-text" rows="4" placeholder="Schreibe die Details deines Traums direkt nach dem Aufwachen auf..."></textarea>
                 
-                <div class="toggle-container">
-                    <input type="checkbox" id="dream-lucid" style="width:16px; height:16px; accent-color:var(--accent-lucid);">
-                    <label for="dream-lucid" style="cursor:pointer; font-weight:600;">Es war ein luzider Traum (Klarraum)</label>
+                <textarea id="dream-text" rows="5" placeholder="Beschreibe die Umgebung, Handlungen und Gefühle..."></textarea>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <select id="dream-technique" class="interactive">
+                        <option value="Keine">Angewandte Technik...</option>
+                        <option value="MILD">MILD (Mnemonic)</option>
+                        <option value="WBTB">WBTB (Wake Back to Bed)</option>
+                        <option value="WILD">WILD (Wake Initiated)</option>
+                        <option value="SSILD">SSILD (Senses Initiated)</option>
+                        <option value="DILD">DILD (Dream Initiated / Spontan)</option>
+                    </select>
+                    
+                    <div class="toggle-container interactive" onclick="document.getElementById('dream-lucid').click();">
+                        <input type="checkbox" id="dream-lucid" style="width:18px; height:18px; accent-color:var(--accent-lucid); cursor:pointer;" onclick="event.stopPropagation(); playSound(400, 'sine', 0.05);">
+                        <label style="cursor:pointer; font-weight:500; user-select: none;">Luzid (Klarraum)</label>
+                    </div>
                 </div>
 
-                <div style="display:flex; gap:10px;">
-                    <button class="btn" id="save-btn" onclick="saveDream()" style="flex:1;">Speichern & Analysieren</button>
-                    <button class="btn btn-secondary" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none;">Abbrechen</button>
+                <div style="display:flex; gap:12px;">
+                    <button class="btn interactive" id="save-btn" onclick="saveDream()" style="flex:2;">Eintrag speichern & KI Analyse</button>
+                    <button class="btn btn-secondary interactive" id="cancel-edit-btn" onclick="cancelEdit()" style="display:none; flex:1;">Abbrechen</button>
                 </div>
             </div>
 
-            <h2>Deine Chronik</h2>
+            <h3>Chronik</h3>
             <div id="dreams-list"></div>
         </div>
 
-        <!-- TAB 2: Checks -->
         <div id="tab-checks" class="tab-content">
             <div class="card">
                 <h2>Tägliche Verankerung</h2>
-                <p style="color: var(--text-muted); font-size: 13px; margin-top:-10px; margin-bottom:20px;">
-                    Setzen sich jede Nacht automatisch zurück, um deine kritische Aufmerksamkeit zu trainieren.
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom:24px; line-height: 1.6;">
+                    Regelmäßige Checks trainieren dein kritisches Bewusstsein. Diese Liste setzt sich jede Nacht automatisch zurück.
                 </p>
-                <div class="todo-item" onclick="toggleCheck('check1')">
+                <div class="todo-item interactive" onclick="toggleCheck('check1')">
                     <input type="checkbox" id="check-1" pointer-events="none">
-                    <label style="cursor:pointer;">Digitaluhr/Uhrzeit zweimal prüfen (Ändert sich die Zeit?)</label>
+                    <label style="cursor:pointer; font-weight:500;">Text/Uhrzeit-Test (Zweimal hinsehen - ändert es sich?)</label>
                 </div>
-                <div class="todo-item" onclick="toggleCheck('check2')">
+                <div class="todo-item interactive" onclick="toggleCheck('check2')">
                     <input type="checkbox" id="check-2" pointer-events="none">
-                    <label style="cursor:pointer;">Nasenatmungs-Test (Nase zuhalten und einatmen versuchen)</label>
+                    <label style="cursor:pointer; font-weight:500;">Atem-Test (Nase zuhalten und einatmen)</label>
                 </div>
-                <div class="todo-item" onclick="toggleCheck('check3')">
+                <div class="todo-item interactive" onclick="toggleCheck('check3')">
                     <input type="checkbox" id="check-3" pointer-events="none">
-                    <label style="cursor:pointer;">Gedruckten Text oder Umgebungsschilder zweimal fixieren</label>
+                    <label style="cursor:pointer; font-weight:500;">Hand-Test (Anzahl der Finger zählen)</label>
                 </div>
-                <div class="todo-item" onclick="toggleCheck('check4')">
+                <div class="todo-item interactive" onclick="toggleCheck('check4')">
                     <input type="checkbox" id="check-4" pointer-events="none">
-                    <label style="cursor:pointer;">Kritisches Hinterfragen: Wie bin ich in diese Situation gekommen?</label>
+                    <label style="cursor:pointer; font-weight:500;">Realitätsfrage: "Wie bin ich exakt hierher gekommen?"</label>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: Stats & Settings -->
         <div id="tab-stats" class="tab-content">
             <div class="card">
-                <h2>Statistische Auswertung</h2>
+                <h2>Auswertung</h2>
                 <div class="stats-grid">
                     <div class="stat-box">
                         <div class="stat-val" id="stat-total">0</div>
@@ -472,47 +536,90 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
                         <div class="stat-lbl">Klarheitsrate</div>
                     </div>
                 </div>
-                <h3>Dominante Traummuster</h3>
-                <div id="patterns-summary" style="line-height: 1.8;">Noch keine Muster berechnet.</div>
+                <h3>Dominante Traumzeichen</h3>
+                <div id="patterns-summary" style="line-height: 2;">Noch keine Muster berechnet.</div>
             </div>
+        </div>
 
+        <div id="tab-settings" class="tab-content">
             <div class="card">
-                <h2>Schnittstelle konfigurieren</h2>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 15px;">
-                    Verwendet Gemini 1.5 Flash direkt aus deinem Browser. Der Schlüssel bleibt lokal.
-                </p>
-                <input type="text" id="api-key-input" placeholder="AIzaSy...">
-                <button class="btn btn-secondary" onclick="saveApiKey()" style="width:100%;">Schlüssel lokal sichern</button>
+                <h2>Personalisierung</h2>
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Diese Daten werden an die KI übergeben, um die Beratung auf dich abzustimmen.</p>
+                
+                <input type="text" id="user-name" class="interactive" placeholder="Dein Vorname" onchange="saveProfile()">
+                <select id="user-primary-tech" class="interactive" onchange="saveProfile()">
+                    <option value="">Fokus-Technik wählen...</option>
+                    <option value="MILD">Ich fokussiere mich auf MILD</option>
+                    <option value="WBTB">Ich fokussiere mich auf WBTB</option>
+                    <option value="WILD">Ich trainiere hauptsächlich WILD</option>
+                    <option value="ADA">Ich übe All Day Awareness (ADA)</option>
+                </select>
+                
+                <h3>Gemini API Schnittstelle</h3>
+                <input type="text" id="api-key-input" class="interactive" placeholder="Dein API-Schlüssel (AIzaSy...)">
+                <button class="btn btn-secondary interactive" onclick="saveApiKey()" style="width:100%;">Konfiguration speichern</button>
+            </div>
+            
+            <div class="card">
+                <button class="btn btn-danger interactive" onclick="factoryReset()" style="width:100%;">Alle lokalen Daten löschen</button>
             </div>
         </div>
     </div>
 
-    <!-- Floating Chat Button -->
-    <button id="chat-trigger" onclick="toggleChat()">✦</button>
+    <button id="chat-trigger" class="interactive" onclick="toggleChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </button>
 
-    <!-- Chat Widget -->
     <div id="chat-widget">
         <div class="chat-header">
-            <span>Traum-Mentor KI</span>
-            <button onclick="toggleChat()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
+            <span>KI Mentor</span>
+            <button class="interactive" onclick="toggleChat()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
         </div>
         <div class="chat-messages" id="chat-messages">
-            <div class="msg ai">Hallo! Ich habe vollen Zugriff auf deine Traumchronik. Lass uns deine Traummuster analysieren oder konkrete Techniken besprechen.</div>
+            <div class="msg ai">Hallo! Ich analysiere deine Traumzeichen und helfe dir bei deinen Techniken. Was beschäftigt dich heute?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Frage zu deinen Mustern..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
-            <button class="btn" onclick="sendChatMessage()">Senden</button>
+            <input type="text" id="chat-input" class="interactive" placeholder="Frage formulieren..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+            <button class="btn interactive" onclick="sendChatMessage()">Senden</button>
         </div>
     </div>
 
     <script>
-        // State Management
+        /* --- Web Audio API for Soft Clicks --- */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(frequency = 300, type = 'sine', duration = 0.05) {
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        // Attach sound to interactive elements
+        document.addEventListener('click', (e) => {
+            if(e.target.closest('.interactive')) {
+                playSound(e.target.closest('.todo-item') ? 500 : 350, 'sine', 0.04);
+            }
+        });
+
+        /* --- State Management --- */
         let dreams = [];
         let chatHistory = [];
 
-        // App Initialisierung
         window.onload = function() {
             checkDailyReset();
+            loadProfile();
             loadApiKey();
             loadDreams();
             loadChecks();
@@ -528,46 +635,76 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             event.currentTarget.classList.add('active');
         }
 
-        // Daily Reset Logik (Checks zurücksetzen)
+        /* --- User Profile & Setup --- */
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById('user-name').value.trim(),
+                tech: document.getElementById('user-primary-tech').value
+            };
+            localStorage.setItem('lucid_profile_v3', JSON.stringify(profile));
+        }
+
+        function loadProfile() {
+            const p = JSON.parse(localStorage.getItem('lucid_profile_v3') || '{}');
+            if(p.name) document.getElementById('user-name').value = p.name;
+            if(p.tech) document.getElementById('user-primary-tech').value = p.tech;
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('api-key-input').value.trim();
+            localStorage.setItem('gemini_api_key_v3', key);
+            
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Gespeichert!";
+            btn.style.backgroundColor = "var(--success)";
+            btn.style.color = "white";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = "";
+                btn.style.color = "";
+            }, 2000);
+        }
+
+        function loadApiKey() {
+            const saved = localStorage.getItem('gemini_api_key_v3');
+            if (saved) document.getElementById('api-key-input').value = saved;
+        }
+        
+        function factoryReset() {
+            if(confirm("ACHTUNG: Dies löscht dein gesamtes Tagebuch und alle Einstellungen unwiderruflich. Fortfahren?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        /* --- Daily Checks --- */
         function checkDailyReset() {
             const today = new Date().toLocaleDateString('de-DE');
-            const lastReset = localStorage.getItem('dream_last_reset');
+            const lastReset = localStorage.getItem('dream_last_reset_v3');
             document.getElementById('reset-indicator').innerText = `Heute: ${today}`;
             
             if (lastReset !== today) {
                 const blankChecks = { check1: false, check2: false, check3: false, check4: false };
-                localStorage.setItem('dream_checks_v2', JSON.stringify(blankChecks));
-                localStorage.setItem('dream_last_reset', today);
+                localStorage.setItem('dream_checks_v3', JSON.stringify(blankChecks));
+                localStorage.setItem('dream_last_reset_v3', today);
             }
         }
 
-        // API Key Management
-        function saveApiKey() {
-            const key = document.getElementById('api-key-input').value.trim();
-            localStorage.setItem('gemini_api_key_v2', key);
-            alert('API-Schlüssel gespeichert.');
-        }
-        function loadApiKey() {
-            const saved = localStorage.getItem('gemini_api_key_v2');
-            if (saved) document.getElementById('api-key-input').value = saved;
-        }
-
-        // Checkbox Logik
         function toggleCheck(id) {
             const num = id.replace('check', '');
             const input = document.getElementById(`check-${num}`);
             input.checked = !input.checked;
             
-            const saved = JSON.parse(localStorage.getItem('dream_checks_v2') || '{}');
+            const saved = JSON.parse(localStorage.getItem('dream_checks_v3') || '{}');
             saved[id] = input.checked;
-            localStorage.setItem('dream_checks_v2', JSON.stringify(saved));
+            localStorage.setItem('dream_checks_v3', JSON.stringify(saved));
             
-            // UI Klasse anpassen
             input.closest('.todo-item').classList.toggle('checked', input.checked);
         }
 
         function loadChecks() {
-            const saved = JSON.parse(localStorage.getItem('dream_checks_v2') || '{}');
+            const saved = JSON.parse(localStorage.getItem('dream_checks_v3') || '{}');
             for(let i=1; i<=4; i++) {
                 const status = saved[`check${i}`] || false;
                 const input = document.getElementById(`check-${i}`);
@@ -578,30 +715,34 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             }
         }
 
-        // CRUD Traum Operationen
+        /* --- Dream CRUD --- */
         function loadDreams() {
-            dreams = JSON.parse(localStorage.getItem('user_dreams_v2') || '[]');
+            dreams = JSON.parse(localStorage.getItem('user_dreams_v3') || '[]');
         }
 
         async function saveDream() {
             const textEl = document.getElementById('dream-text');
             const isLucidEl = document.getElementById('dream-lucid');
+            const techEl = document.getElementById('dream-technique');
             const editIdEl = document.getElementById('edit-id');
+            const btn = document.getElementById('save-btn');
             
             const text = textEl.value.trim();
             if (!text) return;
 
-            const isLucid = isLucidEl.checked;
-            const editId = editIdEl.value;
+            btn.innerText = "Analysiere...";
+            btn.style.opacity = "0.7";
+            btn.style.pointerEvents = "none";
 
-            const apiKey = localStorage.getItem('gemini_api_key_v2');
+            const isLucid = isLucidEl.checked;
+            const tech = techEl.value;
+            const editId = editIdEl.value;
+            const apiKey = localStorage.getItem('gemini_api_key_v3');
             let patterns = [];
 
             if (editId) {
-                const oldIndex = dreams.findIndex(d => d.id == editId);
-                if (oldIndex !== -1 && dreams[oldIndex].text === text) {
-                    patterns = dreams[oldIndex].patterns;
-                }
+                const oldDream = dreams.find(d => d.id == editId);
+                if (oldDream && oldDream.text === text) patterns = oldDream.patterns;
             }
 
             if (apiKey && patterns.length === 0) {
@@ -610,18 +751,14 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            contents: [{
-                                parts: [{
-                                    text: `Extrahiere aus diesem Traumtext die 2 bis 4 prägnantesten Traumzeichen (Muster, Objekte, Personen, Orte, Emotionen) als kurze Schlagworte. Antworte ausschließlich kommagetrennt, keine Sätze. Beispiel: Fliegen, Roter Raum, Angst. Text: ${text}`
-                                }]
-                            }]
+                            contents: [{ parts: [{ text: `Extrahiere aus diesem Traumtext die 2 bis 4 prägnantesten Traumzeichen (Muster, Objekte, Personen, Orte) als kurze Substantive. Antworte ausschließlich kommagetrennt. Beispiel: Fliegen, Roter Raum, Hund. Text: ${text}` }] }]
                         })
                     });
                     const data = await response.json();
                     if (data.candidates && data.candidates[0].content.parts[0].text) {
-                        patterns = data.candidates[0].content.parts[0].text.split(',').map(p => p.trim()).filter(p => p.length > 0);
+                        patterns = data.candidates[0].content.parts[0].text.split(',').map(p => p.trim().replace(/[^a-zA-ZäöüÄÖÜß ]/g, '')).filter(p => p.length > 0);
                     }
-                } catch (e) { console.error("API Fehler bei Traum-Analyse:", e); }
+                } catch (e) { console.error(e); }
             }
 
             if (editId) {
@@ -629,26 +766,31 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
                 if(index !== -1) {
                     dreams[index].text = text;
                     dreams[index].isLucid = isLucid;
+                    dreams[index].technique = tech;
                     dreams[index].patterns = patterns;
                 }
             } else {
-                const newDream = {
+                dreams.unshift({
                     id: Date.now(),
                     date: new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                     text: text,
                     isLucid: isLucid,
+                    technique: tech,
                     patterns: patterns
-                };
-                dreams.unshift(newDream);
+                });
             }
 
-            localStorage.setItem('user_dreams_v2', JSON.stringify(dreams));
+            localStorage.setItem('user_dreams_v3', JSON.stringify(dreams));
             
+            // Reset Form
             textEl.value = '';
             isLucidEl.checked = false;
+            techEl.value = 'Keine';
             editIdEl.value = '';
-            document.getElementById('form-title').innerText = 'Traum aufzeichnen';
-            document.getElementById('save-btn').innerText = 'Speichern & Analysieren';
+            document.getElementById('form-title').innerText = 'Traum dokumentieren';
+            btn.innerText = 'Eintrag speichern & KI Analyse';
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "all";
             document.getElementById('cancel-edit-btn').style.display = 'none';
 
             displayDreams();
@@ -658,26 +800,26 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
         function displayDreams() {
             const listEl = document.getElementById('dreams-list');
             if (dreams.length === 0) {
-                listEl.innerHTML = '<div style="color: var(--text-muted); text-align:center; padding:20px;">Noch keine Träume aufgezeichnet.</div>';
+                listEl.innerHTML = '<div style="color: var(--text-muted); text-align:center; padding:32px; background:var(--card-bg); border-radius:16px; border:1px dashed var(--border);">Noch keine Einträge vorhanden.</div>';
                 return;
             }
 
             listEl.innerHTML = dreams.map(dream => `
                 <div class="dream-entry ${dream.isLucid ? 'is-lucid' : 'is-normal'}">
                     <div class="dream-header">
-                        <span>${dream.date}</span>
-                        <span style="color:${dream.isLucid ? 'var(--accent-lucid)' : 'var(--accent-main)'}; font-weight:700;">
+                        <span style="font-weight:600;">${dream.date}</span>
+                        <span style="color:${dream.isLucid ? 'var(--accent-lucid)' : 'var(--accent-main)'}; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:11px;">
                             ${dream.isLucid ? 'Luzid' : 'Trüb'}
                         </span>
                     </div>
-                    <div style="font-size:15px; line-height:1.5; white-space: pre-wrap;">${dream.text}</div>
+                    <div style="font-size:15px; color:var(--text-main); white-space: pre-wrap;">${dream.text}</div>
                     <div>
-                        ${dream.isLucid ? '<span class="tag lucid-badge">Klarheit</span>' : ''}
+                        ${dream.technique && dream.technique !== 'Keine' ? `<span class="tag technique-badge">${dream.technique}</span>` : ''}
                         ${dream.patterns.map(p => `<span class="tag">${p}</span>`).join('')}
                     </div>
                     <div class="dream-actions">
-                        <button class="btn btn-secondary btn-small" onclick="startEdit(${dream.id})">Bearbeiten</button>
-                        <button class="btn btn-danger btn-small" onclick="deleteDream(${dream.id})">Löschen</button>
+                        <button class="btn btn-secondary btn-small interactive" onclick="startEdit(${dream.id})">Bearbeiten</button>
+                        <button class="btn btn-danger btn-small interactive" onclick="deleteDream(${dream.id})">Löschen</button>
                     </div>
                 </div>
             `).join('');
@@ -689,6 +831,7 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
 
             document.getElementById('dream-text').value = dream.text;
             document.getElementById('dream-lucid').checked = dream.isLucid;
+            document.getElementById('dream-technique').value = dream.technique || 'Keine';
             document.getElementById('edit-id').value = dream.id;
             
             document.getElementById('form-title').innerText = 'Eintrag bearbeiten';
@@ -696,22 +839,23 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             document.getElementById('cancel-edit-btn').style.display = 'inline-flex';
             
             switchTab('tab-journal');
-            document.getElementById('dream-text').focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function cancelEdit() {
             document.getElementById('dream-text').value = '';
             document.getElementById('dream-lucid').checked = false;
+            document.getElementById('dream-technique').value = 'Keine';
             document.getElementById('edit-id').value = '';
-            document.getElementById('form-title').innerText = 'Traum aufzeichnen';
-            document.getElementById('save-btn').innerText = 'Speichern & Analysieren';
+            document.getElementById('form-title').innerText = 'Traum dokumentieren';
+            document.getElementById('save-btn').innerText = 'Eintrag speichern & KI Analyse';
             document.getElementById('cancel-edit-btn').style.display = 'none';
         }
 
         function deleteDream(id) {
-            if(confirm('Möchtest du diesen Traumeintrag unwiderruflich löschen?')) {
+            if(confirm('Eintrag unwiderruflich löschen?')) {
                 dreams = dreams.filter(d => d.id != id);
-                localStorage.setItem('user_dreams_v2', JSON.stringify(dreams));
+                localStorage.setItem('user_dreams_v3', JSON.stringify(dreams));
                 displayDreams();
                 updateStatsAndPatterns();
             }
@@ -733,29 +877,30 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
                 });
             });
 
-            const sorted = Object.entries(allPatterns).sort((a,b) => b[1] - a[1]);
+            const sorted = Object.entries(allPatterns).sort((a,b) => b[1] - a[1]).slice(0, 15);
             const summaryEl = document.getElementById('patterns-summary');
             
             if(sorted.length === 0) {
-                summaryEl.innerHTML = '<span style="color:var(--text-muted)">Noch keine wiederkehrenden Muster berechnet.</span>';
+                summaryEl.innerHTML = '<span style="color:var(--text-muted)">Zu wenig Daten.</span>';
                 return;
             }
 
             summaryEl.innerHTML = sorted.map(([pattern, count]) => `
-                <span class="tag" style="background-color: rgba(0, 242, 254, 0.05); border-color: rgba(0, 242, 254, 0.1); color: #fff;">
-                    ${pattern} (${count}x)
+                <span class="tag" style="background-color: var(--card-bg); border: 1px solid var(--border);">
+                    ${pattern} <span style="color:var(--accent-main); font-weight:700; margin-left:4px;">${count}</span>
                 </span>
             `).join('');
         }
 
-        // Continuous AI Chat Funktionen
+        /* --- Chat AI --- */
         function toggleChat() {
             document.getElementById('chat-widget').classList.toggle('open');
         }
 
         function loadChatHistory() {
-            chatHistory = JSON.parse(localStorage.getItem('dream_chat_history') || '[]');
+            chatHistory = JSON.parse(localStorage.getItem('dream_chat_history_v3') || '[]');
             const container = document.getElementById('chat-messages');
+            container.innerHTML = '<div class="msg ai">Hallo! Ich analysiere deine Traumzeichen und helfe dir bei deinen Techniken. Was beschäftigt dich heute?</div>';
             chatHistory.forEach(msg => {
                 const div = document.createElement('div');
                 div.className = `msg ${msg.role === 'user' ? 'user' : 'ai'}`;
@@ -774,35 +919,36 @@ with open("index_2.0.html", "w", encoding="utf-8") as f:
             inputEl.value = '';
 
             chatHistory.push({ role: 'user', text: messageText });
-            localStorage.setItem('dream_chat_history', JSON.stringify(chatHistory));
+            localStorage.setItem('dream_chat_history_v3', JSON.stringify(chatHistory));
 
-            const apiKey = localStorage.getItem('gemini_api_key_v2');
+            const apiKey = localStorage.getItem('gemini_api_key_v3');
             if(!apiKey) {
-                appendMessage('ai', 'Bitte trage zuerst im dritten Tab einen Gemini API-Schlüssel ein.');
+                appendMessage('ai', 'API-Schlüssel fehlt. Bitte im Tab "Setup" eintragen.');
                 return;
             }
 
-            const dreamContext = dreams.map(d => `Datum: ${d.date}, Typ: ${d.isLucid ? 'Luzid':'Trüb'}, Inhalt: ${d.text}, Muster: ${d.patterns.join(', ')}`).join('\\n---\\n');
-            const shortHistory = chatHistory.slice(-10).map(h => `${h.role === 'user' ? 'Nutzer':'Du'}: ${h.text}`).join('\\n');
+            const profile = JSON.parse(localStorage.getItem('lucid_profile_v3') || '{}');
+            const userName = profile.name || 'Nutzer';
+            const userTech = profile.tech || 'Nicht festgelegt';
+            
+            const dreamContext = dreams.slice(0, 10).map(d => `Typ: ${d.isLucid?'Luzid':'Trüb'}, Technik: ${d.technique||'Keine'}, Inhalt: ${d.text}`).join('\\n---\\n');
+            const shortHistory = chatHistory.slice(-8).map(h => `${h.role === 'user' ? userName : 'Du'}: ${h.text}`).join('\\n');
 
-            const prompt = `Du bist der "Traum-Mentor", ein hochentwickelter KI-Experte für Klarträume und Traumanalyse. 
-Du hast vollen Zugriff auf das Traumtagebuch des Nutzers. Antworte kurz, präzise und direkt, ohne Floskeln.
-
-Hier sind alle bisherigen Träume des Nutzers:
+            const prompt = `Du bist ein KI-Klartraum-Experte. Antworte kurz, professionell und ohne Floskeln.
+Name des Nutzers: ${userName}. Fokus-Technik des Nutzers: ${userTech}.
+Letzte Träume des Nutzers:
 ${dreamContext}
 
-Bisheriger Chatverlauf:
+Kontext des Gesprächs:
 ${shortHistory}
 
-Antworte jetzt direkt auf die letzte Nachricht des Nutzers als Traum-Mentor.`;
+Antworte direkt auf die letzte Nachricht.`;
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                 });
                 
                 const data = await response.json();
@@ -810,13 +956,10 @@ Antworte jetzt direkt auf die letzte Nachricht des Nutzers als Traum-Mentor.`;
                     const aiReply = data.candidates[0].content.parts[0].text.trim();
                     appendMessage('ai', aiReply);
                     chatHistory.push({ role: 'model', text: aiReply });
-                    localStorage.setItem('dream_chat_history', JSON.stringify(chatHistory));
-                } else {
-                    appendMessage('ai', 'Fehler: Ungültige Antwort von der API erhalten.');
+                    localStorage.setItem('dream_chat_history_v3', JSON.stringify(chatHistory));
                 }
             } catch(e) {
-                console.error(e);
-                appendMessage('ai', 'Verbindungsfehler zur API. Überprüfe deinen Schlüssel.');
+                appendMessage('ai', 'Verbindungsfehler zur API.');
             }
         }
 
@@ -831,5 +974,8 @@ Antworte jetzt direkt auf die letzte Nachricht des Nutzers als Traum-Mentor.`;
     </script>
 </body>
 </html>
-""")
-print("File index_2.0.html generated successfully.")
+"""
+
+with open("index_3.0.html", "w", encoding="utf-8") as f:
+    f.write(code)
+print("File index_3.0.html generated successfully.")
